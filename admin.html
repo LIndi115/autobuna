@@ -13,6 +13,7 @@
             --white: #ffffff;
             --danger: #e63946;
             --success: #28a745;
+            --warning: #ef6c00;
         }
 
         body {
@@ -22,7 +23,6 @@
             background-color: var(--bg-color);
         }
 
-        /* Sidebar Style */
         .sidebar {
             width: 250px;
             background-color: var(--sidebar-color);
@@ -54,14 +54,12 @@
 
         .sidebar i { margin-right: 10px; }
 
-        /* Main Content */
         .main-content {
             margin-left: 250px;
             padding: 30px;
             width: calc(100% - 250px);
         }
 
-        /* Top Cards */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -87,7 +85,6 @@
         .stat-info h3 { margin: 0; font-size: 1.8rem; }
         .stat-info p { margin: 0; color: #777; font-size: 0.9rem; }
 
-        /* Form & Table Style */
         .table-container {
             background: var(--white);
             padding: 25px;
@@ -98,7 +95,7 @@
 
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 15px;
             margin-top: 15px;
         }
@@ -121,6 +118,7 @@
             text-align: left;
             padding: 12px 15px;
             border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
         }
 
         th { background-color: #f8f9fa; }
@@ -134,25 +132,21 @@
 
         .status-rented { background: #ffe8e8; color: var(--danger); }
         .status-available { background: #e8f5e9; color: var(--success); }
+        .status-service { background: #fff3e0; color: var(--warning); }
 
         .btn-action {
-            padding: 8px 15px;
+            padding: 10px 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            background: var(--primary);
+            background: var(--success);
             color: white;
             font-weight: bold;
         }
 
-        .btn-delete { background: var(--danger); color: white; padding: 5px 10px; border-radius: 4px; border: none; cursor: pointer; }
-        
-        .car-preview-img {
-            width: 50px;
-            height: 35px;
-            object-fit: cover;
-            border-radius: 4px;
-        }
+        .btn-delete { background: var(--danger); color: white; padding: 5px 8px; border: none; border-radius: 4px; cursor: pointer; }
+
+        .car-img-sm { width: 50px; height: 35px; object-fit: cover; border-radius: 4px; }
     </style>
 </head>
 <body>
@@ -176,67 +170,88 @@
     <div class="stats-grid">
         <div class="stat-card">
             <i class="fas fa-car-side"></i>
-            <div class="stat-info"><h3 id="totalCars">3</h3><p>Totali i Flotës</p></div>
+            <div class="stat-info"><h3 id="totalCars">4</h3><p>Totali i Flotës</p></div>
         </div>
         <div class="stat-card">
             <i class="fas fa-key"></i>
             <div class="stat-info"><h3>15</h3><p>Me Qira Aktivisht</p></div>
         </div>
         <div class="stat-card">
-            <i class="fas fa-check-circle"></i>
-            <div class="stat-info"><h3>7</h3><p>Të Lira</p></div>
+            <i class="fas fa-tools"></i>
+            <div class="stat-info"><h3>2</h3><p>Në Servis</p></div>
         </div>
     </div>
 
     <div class="table-container">
-        <h2 style="color: var(--sidebar-color); margin-top: 0;"><i class="fas fa-plus-circle"></i> Menaxhimi i Inventarit të Web-it</h2>
-        <p style="color: #666; font-size: 0.9rem;">Shto makina të reja ose hiqi ato që janë shitur.</p>
-        
+        <h2 style="margin-top: 0;"><i class="fas fa-plus-circle"></i> Shto Veturë të Re</h2>
         <div class="form-grid">
             <div>
-                <label style="font-size: 0.8rem; font-weight: bold;">Modeli i Vetures</label>
-                <input type="text" id="newCarName" placeholder="Psh. Audi A6 2024">
+                <label style="font-size: 0.75rem; font-weight: bold;">Modeli</label>
+                <input type="text" id="carModel" placeholder="Audi A6">
             </div>
             <div>
-                <label style="font-size: 0.8rem; font-weight: bold;">Çmimi / 24h (€)</label>
-                <input type="number" id="newCarPrice" placeholder="50">
+                <label style="font-size: 0.75rem; font-weight: bold;">Targa</label>
+                <input type="text" id="carPlate" placeholder="01-123-AB">
             </div>
             <div>
-                <label style="font-size: 0.8rem; font-weight: bold;">URL e Fotos</label>
-                <input type="text" id="newCarImg" placeholder="Linku i fotos...">
+                <label style="font-size: 0.75rem; font-weight: bold;">Çmimi (€)</label>
+                <input type="number" id="carPrice" placeholder="50">
+            </div>
+            <div>
+                <label style="font-size: 0.75rem; font-weight: bold;">URL Foto</label>
+                <input type="text" id="carImg" placeholder="https://...">
             </div>
             <div style="display: flex; align-items: flex-end;">
-                <button class="btn-action" onclick="addNewCar()" style="width: 100%; background: var(--success);">SHTO NË WEB</button>
+                <button class="btn-action" onclick="addCarToTable()" style="width: 100%;">SHTO VETURËN</button>
             </div>
         </div>
     </div>
 
     <div class="table-container">
-        <h2>Flota Aktuale në GALAXY PLUS</h2>
+        <h2>Gjendja e Flotës Aktuale</h2>
         <table>
             <thead>
                 <tr>
                     <th>Foto</th>
-                    <th>Modeli</th>
+                    <th>Makina</th>
+                    <th>Targa</th>
                     <th>Çmimi</th>
+                    <th>Klienti</th>
+                    <th>Data Kthimit</th>
                     <th>Statusi</th>
-                    <th>Veprimi</th>
+                    <th>Veprime</th>
                 </tr>
             </thead>
             <tbody id="carTableBody">
                 <tr id="row1">
-                    <td><img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=200" class="car-preview-img"></td>
-                    <td>VW Golf 8 R-Line</td>
+                    <td><img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=100" class="car-img-sm"></td>
+                    <td>VW Golf 8</td>
+                    <td>01-123-AA</td>
                     <td>40€</td>
-                    <td><span class="status status-available">Aktive</span></td>
-                    <td><button class="btn-delete" onclick="removeCar('row1')"><i class="fas fa-trash"></i> Shit/Hiq</button></td>
+                    <td>Filan Fisteku</td>
+                    <td>20/01/2026</td>
+                    <td><span class="status status-rented">Me Qira</span></td>
+                    <td><button class="btn-delete" onclick="deleteRow('row1')"><i class="fas fa-trash"></i></button></td>
                 </tr>
                 <tr id="row2">
-                    <td><img src="https://images.unsplash.com/photo-1606152421802-db97b9c7a11b?w=200" class="car-preview-img"></td>
-                    <td>Audi A4 S-Line</td>
+                    <td><img src="https://images.unsplash.com/photo-1606152421802-db97b9c7a11b?w=100" class="car-img-sm"></td>
+                    <td>Audi A4</td>
+                    <td>01-999-BB</td>
                     <td>55€</td>
-                    <td><span class="status status-available">Aktive</span></td>
-                    <td><button class="btn-delete" onclick="removeCar('row2')"><i class="fas fa-trash"></i> Shit/Hiq</button></td>
+                    <td>---</td>
+                    <td>---</td>
+                    <td><span class="status status-available">E Lirë</span></td>
+                    <td><button class="btn-delete" onclick="deleteRow('row2')"><i class="fas fa-trash"></i></button></td>
+                </tr>
+                <tr id="row3">
+                    <td><img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=100" class="car-img-sm"></td>
+                    <td>BMW X5</td>
+                    <td>01-555-CC</td>
+                    <td>80€</td>
+                    <td>---</td>
+                    <td>25/01/2026</td>
+                    <td><span class="status status-service">Në Servis</span></td>
+                    <td><button class="btn-delete" onclick="deleteRow('row3')"><i class="fas fa-trash"></i></button></td>
                 </tr>
             </tbody>
         </table>
@@ -244,51 +259,52 @@
 </div>
 
 <script>
-    // Funksioni për të shtuar një rresht të ri në tabelë
-    function addNewCar() {
-        const name = document.getElementById('newCarName').value;
-        const price = document.getElementById('newCarPrice').value;
-        const img = document.getElementById('newCarImg').value;
+    function addCarToTable() {
+        const model = document.getElementById('carModel').value;
+        const plate = document.getElementById('carPlate').value;
+        const price = document.getElementById('carPrice').value;
+        const img = document.getElementById('carImg').value;
 
-        if (name === "" || price === "" || img === "") {
-            alert("Ju lutem plotësoni të gjitha të dhënat e veturës!");
+        if (!model || !plate || !price) {
+            alert("Plotëso të dhënat kryesore!");
             return;
         }
 
-        const tableBody = document.getElementById('carTableBody');
-        const newId = "row-" + Date.now(); // Krijon një ID unike
+        const table = document.getElementById('carTableBody');
+        const id = "row-" + Date.now();
 
-        const newRow = `
-            <tr id="${newId}">
-                <td><img src="${img}" class="car-preview-img" onerror="this.src='https://via.placeholder.com/50x35?text=No+Img'"></td>
-                <td>${name}</td>
+        const row = `
+            <tr id="${id}">
+                <td><img src="${img || 'https://via.placeholder.com/50'}" class="car-img-sm"></td>
+                <td>${model}</td>
+                <td>${plate}</td>
                 <td>${price}€</td>
-                <td><span class="status status-available">Aktive</span></td>
-                <td><button class="btn-delete" onclick="removeCar('${newId}')"><i class="fas fa-trash"></i> Shit/Hiq</button></td>
+                <td>---</td>
+                <td>---</td>
+                <td><span class="status status-available">E Lirë</span></td>
+                <td><button class="btn-delete" onclick="deleteRow('${id}')"><i class="fas fa-trash"></i></button></td>
             </tr>
         `;
 
-        tableBody.innerHTML += newRow;
-        updateTotal();
-
-        // Pastro fushat pas shtimit
-        document.getElementById('newCarName').value = "";
-        document.getElementById('newCarPrice').value = "";
-        document.getElementById('newCarImg').value = "";
+        table.innerHTML += row;
+        updateCount();
+        
+        // Reset form
+        document.getElementById('carModel').value = "";
+        document.getElementById('carPlate').value = "";
+        document.getElementById('carPrice').value = "";
+        document.getElementById('carImg').value = "";
     }
 
-    // Funksioni për të fshirë rreshtin (shitja/largimi)
-    function removeCar(id) {
-        if (confirm("A jeni i sigurt që dëshironi ta fshini këtë veturë nga uebfaqja?")) {
+    function deleteRow(id) {
+        if (confirm("Dëshiron ta heqësh këtë veturë?")) {
             document.getElementById(id).remove();
-            updateTotal();
+            updateCount();
         }
     }
 
-    // Përditësimi i numrit total të makinave në kartelat lart
-    function updateTotal() {
-        const count = document.getElementById('carTableBody').children.length;
-        document.getElementById('totalCars').innerText = count;
+    function updateCount() {
+        document.getElementById('totalCars').innerText = document.getElementById('carTableBody').children.length;
     }
 </script>
 
