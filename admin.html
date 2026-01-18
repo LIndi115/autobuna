@@ -23,6 +23,7 @@
             background-color: var(--bg-color);
         }
 
+        /* Sidebar */
         .sidebar {
             width: 250px;
             background-color: var(--sidebar-color);
@@ -30,131 +31,93 @@
             color: white;
             position: fixed;
             padding-top: 20px;
+            transition: 0.3s;
+            z-index: 1000;
         }
 
-        .sidebar h2 {
-            text-align: center;
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            color: var(--primary);
-        }
+        .sidebar h2 { text-align: center; font-size: 1.5rem; margin-bottom: 30px; color: var(--primary); }
+        .sidebar a { display: block; color: #bdc3c7; padding: 15px 25px; text-decoration: none; }
+        .sidebar a:hover, .sidebar a.active { background: var(--primary); color: white; }
+        .sidebar i { margin-right: 10px; }
 
-        .sidebar a {
-            display: block;
-            color: #bdc3c7;
-            padding: 15px 25px;
-            text-decoration: none;
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            width: 100%;
             transition: 0.3s;
         }
 
-        .sidebar a:hover, .sidebar a.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        .sidebar i { margin-right: 10px; }
-
-        .main-content {
-            margin-left: 250px;
-            padding: 30px;
-            width: calc(100% - 250px);
-        }
-
+        /* Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
             margin-bottom: 30px;
         }
 
         .stat-card {
             background: var(--white);
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             display: flex;
             align-items: center;
         }
 
-        .stat-card i {
-            font-size: 2.5rem;
-            margin-right: 15px;
-            color: var(--primary);
-        }
+        .stat-card i { font-size: 2rem; margin-right: 15px; color: var(--primary); }
+        .stat-info h3 { margin: 0; font-size: 1.5rem; }
+        .stat-info p { margin: 0; color: #777; font-size: 0.8rem; }
 
-        .stat-info h3 { margin: 0; font-size: 1.8rem; }
-        .stat-info p { margin: 0; color: #777; font-size: 0.9rem; }
-
+        /* Form and Table Containers */
         .table-container {
             background: var(--white);
-            padding: 25px;
+            padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            overflow-x: auto;
         }
 
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
         }
 
-        input, select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
+        input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 5px; font-size: 0.9rem; }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
+        table { width: 100%; border-collapse: collapse; min-width: 900px; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #eee; font-size: 0.85rem; }
+        th { background: #f8f9fa; color: #333; }
 
-        th, td {
-            text-align: left;
-            padding: 12px 15px;
-            border-bottom: 1px solid #eee;
-            font-size: 0.9rem;
-        }
-
-        th { background-color: #f8f9fa; }
-
-        .status {
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: bold;
-        }
-
+        .status { padding: 4px 8px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; white-space: nowrap; }
         .status-rented { background: #ffe8e8; color: var(--danger); }
         .status-available { background: #e8f5e9; color: var(--success); }
         .status-service { background: #fff3e0; color: var(--warning); }
 
-        .btn-action {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background: var(--success);
-            color: white;
-            font-weight: bold;
+        .btn-action { background: var(--success); color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 5px; }
+        .btn-delete { background: var(--danger); color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; }
+        .car-img-sm { width: 45px; height: 30px; object-fit: cover; border-radius: 3px; }
+
+        .menu-btn { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-250px); }
+            .sidebar.active { transform: translateX(0); }
+            .main-content { margin-left: 0; padding: 15px; }
+            .menu-btn { display: block; }
+            h1 { font-size: 1.3rem; }
         }
-
-        .btn-delete { background: var(--danger); color: white; padding: 5px 8px; border: none; border-radius: 4px; cursor: pointer; }
-
-        .car-img-sm { width: 50px; height: 35px; object-fit: cover; border-radius: 4px; }
     </style>
 </head>
 <body>
 
-<div class="sidebar">
+<div class="sidebar" id="sidebar">
     <h2>GALAXY PLUS</h2>
     <a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a>
-    <a href="#"><i class="fas fa-car"></i> Flota e Makinave</a>
+    <a href="#"><i class="fas fa-car"></i> Flota</a>
     <a href="#"><i class="fas fa-calendar-check"></i> Rezervimet</a>
     <a href="#"><i class="fas fa-users"></i> Klientët</a>
     <a href="#"><i class="fas fa-file-invoice-dollar"></i> Financat</a>
@@ -163,18 +126,20 @@
 
 <div class="main-content">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <h1>Dashboard i Menaxhimit</h1>
-        <p>Mirëseerdhe, <strong>Admin</strong></p>
+        <h1 style="margin:0;">Dashboard i Menaxhimit</h1>
+        <button class="menu-btn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
     </div>
 
     <div class="stats-grid">
         <div class="stat-card">
             <i class="fas fa-car-side"></i>
-            <div class="stat-info"><h3 id="totalCars">4</h3><p>Totali i Flotës</p></div>
+            <div class="stat-info"><h3 id="totalCars">3</h3><p>Totali i Flotës</p></div>
         </div>
         <div class="stat-card">
             <i class="fas fa-key"></i>
-            <div class="stat-info"><h3>15</h3><p>Me Qira Aktivisht</p></div>
+            <div class="stat-info"><h3>15</h3><p>Me Qira</p></div>
         </div>
         <div class="stat-card">
             <i class="fas fa-tools"></i>
@@ -183,32 +148,18 @@
     </div>
 
     <div class="table-container">
-        <h2 style="margin-top: 0;"><i class="fas fa-plus-circle"></i> Shto Veturë të Re</h2>
+        <h3 style="margin-top:0;"><i class="fas fa-plus-circle"></i> Shto Veturë të Re</h3>
         <div class="form-grid">
-            <div>
-                <label style="font-size: 0.75rem; font-weight: bold;">Modeli</label>
-                <input type="text" id="carModel" placeholder="Audi A6">
-            </div>
-            <div>
-                <label style="font-size: 0.75rem; font-weight: bold;">Targa</label>
-                <input type="text" id="carPlate" placeholder="01-123-AB">
-            </div>
-            <div>
-                <label style="font-size: 0.75rem; font-weight: bold;">Çmimi (€)</label>
-                <input type="number" id="carPrice" placeholder="50">
-            </div>
-            <div>
-                <label style="font-size: 0.75rem; font-weight: bold;">URL Foto</label>
-                <input type="text" id="carImg" placeholder="https://...">
-            </div>
-            <div style="display: flex; align-items: flex-end;">
-                <button class="btn-action" onclick="addCarToTable()" style="width: 100%;">SHTO VETURËN</button>
-            </div>
+            <input type="text" id="carModel" placeholder="Modeli (psh. Golf 8)">
+            <input type="text" id="carPlate" placeholder="Targa (01-123-AA)">
+            <input type="number" id="carPrice" placeholder="Çmimi (€)">
+            <input type="text" id="carImg" placeholder="URL e Fotos">
+            <button class="btn-action" onclick="addCarToTable()">SHTO NË LISTË</button>
         </div>
     </div>
 
     <div class="table-container">
-        <h2>Gjendja e Flotës Aktuale</h2>
+        <h3 style="margin-top:0;"><i class="fas fa-list"></i> Gjendja e Flotës Aktuale</h3>
         <table>
             <thead>
                 <tr>
@@ -259,6 +210,10 @@
 </div>
 
 <script>
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('active');
+    }
+
     function addCarToTable() {
         const model = document.getElementById('carModel').value;
         const plate = document.getElementById('carPlate').value;
@@ -266,7 +221,7 @@
         const img = document.getElementById('carImg').value;
 
         if (!model || !plate || !price) {
-            alert("Plotëso të dhënat kryesore!");
+            alert("Ju lutem plotësoni Modelin, Targën dhe Çmimin!");
             return;
         }
 
@@ -289,7 +244,6 @@
         table.innerHTML += row;
         updateCount();
         
-        // Reset form
         document.getElementById('carModel').value = "";
         document.getElementById('carPlate').value = "";
         document.getElementById('carPrice').value = "";
@@ -297,7 +251,7 @@
     }
 
     function deleteRow(id) {
-        if (confirm("Dëshiron ta heqësh këtë veturë?")) {
+        if (confirm("A jeni i sigurt që dëshironi ta fshini këtë makinë?")) {
             document.getElementById(id).remove();
             updateCount();
         }
